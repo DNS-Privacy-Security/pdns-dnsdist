@@ -9,4 +9,11 @@ EOF
 echo 'controlSocket("127.0.0.1")' >> /etc/dnsdist/dnsdist.conf
 echo "${DNSDIST_CONFIG}" >> /etc/dnsdist/dnsdist.conf
 
-exec dnsdist --disable-syslog --uid pdns --gid pdns "${@}"
+
+if [ -t 0 ]; then
+    supervised=""
+else
+    supervised="--supervised"
+fi
+
+exec dnsdist $supervised --disable-syslog --uid pdns --gid pdns "${@}"
