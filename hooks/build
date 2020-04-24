@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if [ "$DOCKER_TAG" = "latest" ]; then
+  echo "Building :latest, with version ${VERSION_TAG}"
+  docker build --build-arg VERSION_TAG=$VERSION_TAG -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+else
+  echo "Building :${DOCKER_TAG}"
+  docker build --build-arg VERSION_TAG=$DOCKER_TAG -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+fi
