@@ -9,7 +9,6 @@ EOF
 echo 'controlSocket("127.0.0.1")' >> /etc/dnsdist/dnsdist.conf
 echo "${DNSDIST_CONFIG}" >> /etc/dnsdist/dnsdist.conf
 
-
 if [ -t 0 ]; then
     supervised=""
 else
