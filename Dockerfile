@@ -18,8 +18,9 @@ ADD https://repo.powerdns.com/FD380FBB-pub.asc /tmp/pdns-pub.asc
 RUN apt-key add /tmp/pdns-pub.asc \
  && rm /tmp/pdns-pub.asc
 
-RUN RELEASE_VERSION=$(expr match "${VERSION_TAG}" '\([0-9]\+\.[0-9]\+\)') \
- && echo "deb [arch=amd64] http://repo.powerdns.com/debian buster-dnsdist-${RELEASE_VERSION//.} main" > /etc/apt/sources.list.d/pdns.list \
+RUN . /etc/os-release \
+ && RELEASE_VERSION=$(expr match "${VERSION_TAG}" '\([0-9]\+\.[0-9]\+\)') \
+ && echo "deb [arch=amd64] http://repo.powerdns.com/${ID} ${VERSION_CODENAME}-dnsdist-${RELEASE_VERSION//.} main" > /etc/apt/sources.list.d/pdns.list \
  && apt-get update \
  && apt-get install -y dnsdist=${VERSION_TAG}\*
 
